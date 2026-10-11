@@ -1,0 +1,52 @@
+{{- define "main" }}
+  <link rel="stylesheet" href="{{ "generator/lib/cropper.min.css" | relURL }}" />
+  <link rel="stylesheet" href="{{ "generator/css/poster.css" | relURL }}" />
+  <header class="page-header">
+    <h1>{{ .Title }}</h1>
+  </header>
+
+  <div class="poster-generator">
+    <form id="poster-form" class="poster-form">
+      <div class="poster-tabs" role="tablist">
+        <button type="button" role="tab" data-tab="meetup">Meetup</button>
+        <button type="button" role="tab" data-tab="speaker">Speaker</button>
+      </div>
+
+      <div class="poster-row">
+        <label>Date <input type="date" name="date" required /></label>
+        <label>Time <input type="time" name="time" value="18:00" required /></label>
+      </div>
+
+      <label data-show="meetup">Address <input type="text" name="address" value="PJATK, Targ Drzewny 9/11, Gdańsk" /></label>
+      <label data-show="meetup">Art author <input type="text" name="author" value="Jane Doe" /></label>
+
+      <label data-show="speaker">Speaker name <input type="text" name="name" value="Jane Doe" /></label>
+      <fieldset data-show="speaker">
+        <legend>Speaker title</legend>
+        <label><input type="radio" name="role" value="prelegent" checked /> prelegent</label>
+        <label><input type="radio" name="role" value="prelegentka" /> prelegentka</label>
+      </fieldset>
+
+      <label>Image <input type="file" name="photo" accept="image/*" /></label>
+      <button type="button" id="crop-button" class="poster-secondary" hidden>Adjust crop</button>
+
+      <button type="button" id="download-all" class="poster-download">Download all</button>
+      <p class="poster-hint">Click a format under a preview to download only that image.</p>
+    </form>
+
+    <div id="poster-previews" class="poster-previews"></div>
+  </div>
+
+  <dialog id="crop-dialog" class="poster-crop">
+    <form method="dialog">
+      <div class="poster-crop-area"><img id="crop-image" alt="Image to crop" /></div>
+      <div class="poster-crop-buttons">
+        <button value="cancel" class="poster-secondary">Cancel</button>
+        <button value="apply" class="poster-download">Use this crop</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="{{ "generator/lib/cropper.min.js" | relURL }}"></script>
+  <script src="{{ "generator/js/poster.js" | relURL }}"></script>
+{{- end }}
