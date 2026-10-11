@@ -1,0 +1,152 @@
+.main {
+  max-width: 1600px;
+}
+
+.poster-generator {
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.poster-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 16px;
+}
+
+.poster-form label,
+.poster-form legend {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  color: var(--secondary);
+}
+
+.poster-form [hidden] {
+  display: none;
+}
+
+.poster-form input[type="date"],
+.poster-form input[type="time"],
+.poster-form input[type="text"],
+.poster-form input[type="file"] {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--entry);
+  color: var(--primary);
+  font: inherit;
+  color-scheme: light dark;
+}
+
+.poster-form fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.poster-form fieldset legend {
+  margin-bottom: 4px;
+}
+
+.poster-form fieldset label {
+  flex-direction: row;
+  align-items: center;
+  color: var(--primary);
+  font-size: 16px;
+}
+
+.poster-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.poster-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.poster-tabs button {
+  padding: 8px;
+  background: var(--entry);
+  color: var(--secondary);
+}
+
+.poster-tabs button[aria-selected="true"] {
+  background: var(--primary);
+  color: var(--theme);
+}
+
+.poster-download {
+  padding: 10px;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--theme);
+}
+
+.poster-hint {
+  font-size: 13px;
+  color: var(--secondary);
+}
+
+.poster-previews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.poster-preview {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.poster-preview.horizontal {
+  flex: 1 1 560px;
+}
+
+.poster-preview.vertical {
+  flex: 0 1 240px;
+}
+
+.poster-preview svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+}
+
+.poster-preview button {
+  align-self: flex-start;
+  font-size: 13px;
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .poster-generator {
+    grid-template-columns: 1fr;
+  }
+
+  .poster-form {
+    position: static;
+  }
+
+  .poster-preview.vertical {
+    flex-basis: 100%;
+    max-width: 360px;
+  }
+}

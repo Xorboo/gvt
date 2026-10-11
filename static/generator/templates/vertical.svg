@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920" font-family="'Sometype Mono', monospace" fill="#fff">
+  <!-- Poster template, 1080x1920 design size. See horizontal.svg for the data-* attributes. -->
+  <rect width="100%" height="100%" fill="#030304" />
+
+  <g transform="translate(30 43)">
+    <image href="../images/pjatk-logo.svg" width="272" height="76" />
+    <image href="../images/hackerspace-logo.png" x="321" y="-4" width="142" height="82" />
+  </g>
+
+  <image data-field="photo" x="26" y="162" width="1028" height="1028" preserveAspectRatio="xMidYMid slice" />
+
+  <text x="540" y="1480" font-size="60" text-anchor="middle">Games &amp; <tspan fill="#e41921">V</tspan>isuals Trójmiasto</text>
+
+  <g data-show="meetup">
+    <rect x="26" y="1242" height="2" data-until="author" data-gap="28" />
+    <text x="1054" y="1253" font-size="27.5" text-anchor="end" data-field="author">Jane Doe</text>
+    <g data-row="46" data-x="540" data-align="middle">
+      <text y="1620" font-size="78" data-field="date">16.10</text>
+      <rect y="1557" width="2" height="69" />
+      <text y="1620" font-size="78" data-field="time">18:00</text>
+    </g>
+    <text x="540" y="1671" font-size="31.5" text-anchor="middle" data-field="address" data-fit="1000">PJATK, Targ Drzewny 9/11, Gdańsk</text>
+    <rect x="26" y="1863" width="1028" height="2" />
+  </g>
+
+  <g data-show="speaker">
+    <text x="540" y="1603" font-size="60" text-anchor="middle" data-field="name" data-fit="1000">Jane Doe</text>
+    <g data-row="68" data-x="540" data-align="middle">
+      <text y="1673" font-size="33" data-field="role">prelegent</text>
+      <rect y="1649" width="2" height="28" />
+      <text y="1673" font-size="33" data-field="date">16.10</text>
+      <rect y="1649" width="2" height="28" />
+      <text y="1673" font-size="33" data-field="time">18:00</text>
+    </g>
+  </g>
+</svg>
