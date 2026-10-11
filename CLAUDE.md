@@ -33,4 +33,5 @@ The pinned Hugo version lives in exactly one place: the `FROM hugomods/hugo:X.Y.
 `/generator/` is a hidden page (`content/generator/index.md`, not in menus, lists, search, RSS or sitemap) that makes the meetup and speaker poster PNGs in the browser. The page markup is `layouts/generator/single.html`; the rest is plain static files in `static/generator/`:
 
 - `templates/{horizontal,vertical}.svg` hold the whole poster design, shared by both poster types. To change the design, edit these SVGs. The `data-*` attributes (text fields, rows, text fitting, right anchoring for wider formats) are described in the comment at the top of `horizontal.svg`.
+- `lib/` holds Cropper.js 1.6.2 (the 1:1 photo crop dialog).
 - `js/poster.js` holds the format list (sizes, which template), fills the templates from the form, shows them as previews and draws them on a canvas for PNG export. Fonts and images go inline as data URLs at export time, because an SVG drawn as an image cannot load files.
