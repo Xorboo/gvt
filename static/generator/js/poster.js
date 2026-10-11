@@ -235,8 +235,16 @@ async function closeCrop() {
   render();
 }
 
+// Meetups are on Fridays. Weeks start on Monday.
+function nextWeekFriday() {
+  const date = new Date();
+  const weekday = (date.getDay() + 6) % 7; // Monday = 0
+  date.setDate(date.getDate() + 7 - weekday + 4);
+  return date.toLocaleDateString("sv"); // sv locale formats as YYYY-MM-DD
+}
+
 async function init() {
-  form.elements.date.value ||= new Date().toLocaleDateString("sv"); // sv locale formats as YYYY-MM-DD
+  form.elements.date.value ||= nextWeekFriday();
   const font = new FontFace("Sometype Mono", `url(${FONT_URL})`);
   document.fonts.add(await font.load());
   [templates[HORIZONTAL], templates[VERTICAL]] = await Promise.all([loadTemplate(HORIZONTAL), loadTemplate(VERTICAL)]);
