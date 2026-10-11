@@ -150,3 +150,44 @@
     max-width: 360px;
   }
 }
+
+.poster-secondary {
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--entry);
+  color: var(--primary);
+}
+
+.poster-crop {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--theme);
+  color: var(--primary);
+}
+
+.poster-crop::backdrop {
+  background: rgb(0 0 0 / 70%);
+}
+
+.poster-crop-area {
+  width: min(80vw, 800px);
+  height: min(70vh, 600px);
+}
+
+.poster-crop-area img {
+  display: block;
+  max-width: 100%;
+}
+
+.poster-crop-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.poster-crop-buttons button {
+  padding: 8px 16px;
+}

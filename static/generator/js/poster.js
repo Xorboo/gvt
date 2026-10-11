@@ -107,6 +107,7 @@ function render() {
   const values = readValues();
   for (const el of form.querySelectorAll("[data-show]")) el.hidden = el.dataset.show !== posterType;
   for (const tab of form.querySelectorAll("[data-tab]")) tab.setAttribute("aria-selected", tab.dataset.tab === posterType);
+  cropButton.hidden = !originals[posterType];
 
   previews.replaceChildren();
   for (const format of POSTERS[posterType].formats) {
@@ -187,28 +188,45 @@ async function downloadAll() {
   for (const [i, format] of POSTERS[posterType].formats.entries()) await download(svgs[i], format, values);
 }
 
-// Big photos are made smaller once, so that the previews do not decode the full image again and again.
-const MAX_PHOTO_SIDE = 2048; // shortest side; the largest photo slot is 1028 px
-async function readPhoto(file) {
-  let bitmap;
-  try {
-    bitmap = await createImageBitmap(file);
-  } catch {
-    alert("Could not read the image.");
+// The picked file opens in a 1:1 crop dialog. The crop result goes on the posters, at most MAX_PHOTO_SIDE px wide, so that
+// the previews do not decode a big photo again and again.
+const MAX_PHOTO_SIDE = 2048; // the largest photo slot is 1028 px
+const cropDialog = document.getElementById("crop-dialog");
+const cropImage = document.getElementById("crop-image");
+const cropButton = document.getElementById("crop-button");
+const originals = {}; // object URL of the picked file, per poster type
+const crops = {}; // last crop box, per poster type
+let cropper;
+
+function openCrop(url) {
+  cropImage.src = url;
+  cropDialog.showModal();
+  cropper = new Cropper(cropImage, {
+    aspectRatio: 1,
+    viewMode: 1,
+    autoCropArea: 1,
+    background: false,
+    data: url === originals[posterType] ? crops[posterType] : undefined,
+  });
+}
+
+async function closeCrop() {
+  const url = cropImage.src;
+  const apply = cropDialog.returnValue === "apply" && cropper.ready; // not ready: the image is still loading
+  const data = cropper.getData();
+  // An exact size: Cropper's maxWidth/maxHeight also scale by the source aspect ratio.
+  const side = Math.min(MAX_PHOTO_SIDE, Math.round(data.width));
+  const canvas = apply ? cropper.getCroppedCanvas({ width: side, height: side, imageSmoothingQuality: "high" }) : null;
+  cropper.destroy();
+  cropDialog.returnValue = "";
+  if (!apply) {
+    if (url !== originals[posterType]) URL.revokeObjectURL(url);
     return;
   }
-  const scale = MAX_PHOTO_SIDE / Math.min(bitmap.width, bitmap.height);
-  let blob = file;
-  if (scale < 1) {
-    const canvas = document.createElement("canvas");
-    canvas.width = Math.round(bitmap.width * scale);
-    canvas.height = Math.round(bitmap.height * scale);
-    const context = canvas.getContext("2d");
-    context.imageSmoothingQuality = "high";
-    context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
-    blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.92));
-  }
-  bitmap.close();
+  if (originals[posterType] && originals[posterType] !== url) URL.revokeObjectURL(originals[posterType]);
+  originals[posterType] = url;
+  crops[posterType] = data;
+  const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
   if (photos[posterType]) {
     URL.revokeObjectURL(photos[posterType]);
     dataUrls.delete(photos[posterType]);
@@ -225,7 +243,7 @@ async function init() {
 
   form.addEventListener("input", (event) => {
     if (event.target.name === "photo") {
-      if (event.target.files[0]) readPhoto(event.target.files[0]);
+      if (event.target.files[0]) openCrop(URL.createObjectURL(event.target.files[0]));
     } else {
       render();
     }
@@ -240,6 +258,8 @@ async function init() {
     });
   }
   document.getElementById("download-all").addEventListener("click", downloadAll);
+  cropButton.addEventListener("click", () => openCrop(originals[posterType]));
+  cropDialog.addEventListener("close", closeCrop);
   render();
 }
 
