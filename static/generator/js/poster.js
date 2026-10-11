@@ -94,10 +94,10 @@ function layout(svg, format, values) {
     el.setAttribute("transform", `translate(${format.width - designWidth} 0)`);
   }
   for (const el of svg.querySelectorAll("[data-until]")) {
-    const target = svg.querySelector(`[data-field="${el.dataset.until}"]`);
+    const target = svg.querySelector(el.dataset.until);
     const toLocal = el.getCTM().inverse().multiply(target.getCTM());
     const box = target.getBBox();
-    const targetLeft = box.width ? box.x : target.x.baseVal[0].value; // empty text has no box
+    const targetLeft = box.width || !target.x ? box.x : target.x.baseVal[0].value; // empty text has no box
     const left = new DOMPoint(targetLeft, 0).matrixTransform(toLocal).x;
     el.setAttribute("width", Math.max(0, left - Number(el.dataset.gap) - el.x.baseVal.value));
   }
