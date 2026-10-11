@@ -8,6 +8,7 @@
     - data-row="GAP" data-x="X" [data-align="middle|end"]: the children go left to right, GAP apart, starting (or centered, or ending) at X.
     - data-fit="W": the font gets smaller if the text is wider than W.
     - data-until="SELECTOR" data-gap="G": the rect width extends to G before the left edge of the element that SELECTOR finds.
+      If that element is empty text, the rect extends to its x, with no gap.
     Lines are 2 px rects; text separators are 1 px. Image hrefs are relative to this file.
   -->
   <rect width="100%" height="100%" fill="#030304" />

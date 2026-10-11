@@ -96,10 +96,12 @@ function layout(svg, format, values) {
   for (const el of svg.querySelectorAll("[data-until]")) {
     const target = svg.querySelector(el.dataset.until);
     const toLocal = el.getCTM().inverse().multiply(target.getCTM());
-    const box = target.getBBox();
-    const targetLeft = box.width || !target.x ? box.x : target.x.baseVal[0].value; // empty text has no box
+    // Empty text: the rect goes all the way to the text anchor, with no gap.
+    const empty = target.tagName === "text" && !target.textContent.trim();
+    const targetLeft = empty ? target.x.baseVal[0].value : target.getBBox().x;
     const left = new DOMPoint(targetLeft, 0).matrixTransform(toLocal).x;
-    el.setAttribute("width", Math.max(0, left - Number(el.dataset.gap) - el.x.baseVal.value));
+    const gap = empty ? 0 : Number(el.dataset.gap);
+    el.setAttribute("width", Math.max(0, left - gap - el.x.baseVal.value));
   }
 }
 
