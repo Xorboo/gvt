@@ -187,14 +187,34 @@ async function downloadAll() {
   for (const [i, format] of POSTERS[posterType].formats.entries()) await download(svgs[i], format, values);
 }
 
-function readPhoto(file) {
-  const reader = new FileReader();
-  reader.onload = () => {
-    photos[posterType] = reader.result;
-    render();
-  };
-  reader.onerror = () => alert("Could not read the image.");
-  reader.readAsDataURL(file);
+// Big photos are made smaller once, so that the previews do not decode the full image again and again.
+const MAX_PHOTO_SIDE = 2048; // shortest side; the largest photo slot is 1028 px
+async function readPhoto(file) {
+  let bitmap;
+  try {
+    bitmap = await createImageBitmap(file);
+  } catch {
+    alert("Could not read the image.");
+    return;
+  }
+  const scale = MAX_PHOTO_SIDE / Math.min(bitmap.width, bitmap.height);
+  let blob = file;
+  if (scale < 1) {
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(bitmap.width * scale);
+    canvas.height = Math.round(bitmap.height * scale);
+    const context = canvas.getContext("2d");
+    context.imageSmoothingQuality = "high";
+    context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.92));
+  }
+  bitmap.close();
+  if (photos[posterType]) {
+    URL.revokeObjectURL(photos[posterType]);
+    dataUrls.delete(photos[posterType]);
+  }
+  photos[posterType] = URL.createObjectURL(blob);
+  render();
 }
 
 async function init() {
