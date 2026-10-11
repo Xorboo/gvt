@@ -34,4 +34,3 @@ The pinned Hugo version lives in exactly one place: the `FROM hugomods/hugo:X.Y.
 
 - `templates/{horizontal,vertical}.svg` hold the whole poster design, shared by both poster types. To change the design, edit these SVGs. The `data-*` attributes (text fields, rows, text fitting, right anchoring for wider formats) are described in the comment at the top of `horizontal.svg`.
 - `js/poster.js` holds the format list (sizes, which template), fills the templates from the form, shows them as previews and draws them on a canvas for PNG export. Fonts and images go inline as data URLs at export time, because an SVG drawn as an image cannot load files.
-- `pygda.html` is a separate, older html2canvas generator (`js/generator.js`, `css/style.css`).
