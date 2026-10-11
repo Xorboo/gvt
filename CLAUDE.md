@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Hugo static site for GVT (Games and Visuals Trójmiasto) gamedev meetups, using the PaperMod theme as a git submodule (`themes/PaperMod`). Production is https://gvt.xorb.ooo/ — Coolify auto-builds the `Dockerfile` (hugo build + nginx) on push to `master`. The same push also deploys to GitHub Pages via `.github/workflows/hugo.yml`.
+Hugo static site for GVT (Games and Visuals Trójmiasto) gamedev meetups, using the PaperMod theme as a git submodule (`themes/PaperMod`). Production is https://gvt.xorb.ooo/ — Coolify auto-builds the `Dockerfile` (hugo build + nginx) on push to `master`.
 
 ## Commands
 
@@ -17,7 +17,7 @@ There are no tests.
 
 ## Hugo version management
 
-The pinned Hugo version lives in exactly one place: the `FROM hugomods/hugo:X.Y.Z` line in the Dockerfile. The GitHub Pages workflow parses it from there — to bump Hugo, change only that line. `config.yaml` sets `module.hugoVersion.min` as a compatibility floor (bump it only when the theme requires a newer Hugo). Local installs are managed via winget (`winget upgrade Hugo.Hugo.Extended`).
+The pinned Hugo version lives in exactly one place: the `FROM hugomods/hugo:X.Y.Z` line in the Dockerfile — to bump Hugo, change only that line. `config.yaml` sets `module.hugoVersion.min` as a compatibility floor (bump it only when the theme requires a newer Hugo). Local installs are managed via winget (`winget upgrade Hugo.Hugo.Extended`).
 
 ## Content model
 
