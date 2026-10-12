@@ -1,0 +1,12 @@
+---
+event: "GVT #28"
+title: "How to manage a portfolio of hundreds of games - remote configuration using WebConfigurator"
+date: 2026-10-16
+speaker: Michalina Milewicz-Zalewska
+speakerInfo: |
+  Michalina Milewicz-Zalewska is Head of Tech at BoomBit, where she leads engineering teams and oversees infrastructure, SDK and web products. She combines a background in Physics with hands-on experience in product, project and team management. In her work, she defines product vision and roadmaps, improves software delivery and support processes, coordinates incident response, and strengthens collaboration between engineering and business teams. She is particularly interested in practical automation and the use of AI tools to remove friction from everyday workflows. Before moving into the gamedev industry, Michalina worked in academia and international research, contributing to the NICA scientific project, coordinating an equipment database, teaching university students and speaking at technical meetings and conferences. She brings a pragmatic, people-focused approach to technical leadership and organizational change. [LinkedIn](https://www.linkedin.com/in/michalina-milewicz-zalewska/)
+description: |
+  Managing a portfolio of hundreds of live games means dealing with different codebases, release cycles and configuration needs at scale. How can teams introduce changes consistently without updating every game separately? This talk presents BoomBit's approach: Core SDK, a central SDK shared across its games, and WebConfigurator, a tool for changing selected parameters remotely. WebConfigurator also uses Machine Learning to optimize parameters during experiments designed and run by game owners, helping teams make data-informed adjustments across live titles. Together, these tools provide a common foundation while enabling faster, more controlled configuration across a large portfolio. The session will explore the challenges that led to this solution, how the tools work together, and the product and organizational decisions behind them. It will share practical lessons from building a system used by many teams and titles: balancing standardization with flexibility, enabling experimentation, coordinating ownership and keeping the solution reliable as the portfolio grows. Attendees will leave with ideas for designing shared tooling, remote configuration and ML-supported experimentation at scale.
+cover:
+  image: "images/talks/2026-10-16-michalina.png"
+---
