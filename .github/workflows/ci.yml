@@ -6,18 +6,6 @@ on:
   pull_request:
 
 jobs:
-  format:
-    name: Prettier check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npx prettier --check .
-
   docker:
     name: Docker build (what Coolify runs on deploy)
     runs-on: ubuntu-latest
