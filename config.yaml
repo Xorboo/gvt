@@ -9,6 +9,10 @@ theme: "PaperMod"
 buildFuture: true
 enableRobotsTXT: true
 
+# 12 divides evenly into 2 and 3 grid columns
+pagination:
+  pagerSize: 12
+
 # search page needs the JSON index; markdown copies are served to agents that send Accept: text/markdown (see nginx.conf)
 outputs:
   home: ["HTML", "RSS", "JSON", "markdown"]
