@@ -9,9 +9,15 @@ theme: "PaperMod"
 buildFuture: true
 enableRobotsTXT: true
 
-# search page needs the JSON index
+# search page needs the JSON index; markdown copies are served to agents that send Accept: text/markdown (see nginx.conf)
 outputs:
-  home: ["HTML", "RSS", "JSON"]
+  home: ["HTML", "RSS", "JSON", "markdown"]
+  page: ["HTML", "markdown"]
+outputFormats:
+  markdown:
+    mediaType: "text/markdown"
+    baseName: "index"
+    isPlainText: true
 
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema
