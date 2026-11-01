@@ -1,0 +1,9 @@
+{{- /* GVT fork: adds Content-Signal (https://contentsignals.org/) */ -}}
+User-agent: *
+{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+Disallow:
+{{- else }}
+Disallow: /
+{{- end }}
+Sitemap: {{ "sitemap.xml" | absURL }}
