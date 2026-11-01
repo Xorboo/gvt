@@ -40,6 +40,12 @@
   font-family: "Sometype Mono", monospace;
 }
 
+/* the red V of the talk covers; config marks it as *V* */
+.home-info .entry-header h1 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
 /* the theme's .first-entry forces min-height 320px */
 .first-entry.home-info {
   min-height: unset;
@@ -158,7 +164,6 @@
 .post-description a:hover,
 footer.footer a:hover,
 .paginav a:hover,
-.top-link:hover,
 .breadcrumbs a:hover {
   color: var(--accent);
 }
@@ -172,6 +177,26 @@ footer.footer a:hover,
 
 .youtube-link a:hover {
   color: var(--accent);
+}
+
+/* back-to-top button: same distance from the right and bottom edges, so it sits on the corner diagonal;
+   the theme lifts it 5rem on narrow list pages to clear pagination buttons, which the home page does not have */
+.top-link,
+.list .top-link {
+  right: var(--gap);
+  bottom: var(--gap);
+  width: 44px;
+  height: 44px;
+  padding: 11px;
+  transform: none;
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.top-link:hover {
+  color: #fff;
+  background: color-mix(in srgb, var(--accent) 80%, #000);
 }
 
 /* Event badge: mono accent tag next to talk titles */

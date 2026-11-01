@@ -31,3 +31,13 @@
 .post-entry:active:not(:has(.youtube-link:active)) {
   transform: scale(0.96);
 }
+
+/* "no recording" icon: muted and not a link, so no hover or press effect */
+.no-recording {
+  display: flex;
+  color: var(--secondary);
+}
+
+.youtube-link:has(.no-recording):hover {
+  transform: none;
+}

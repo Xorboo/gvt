@@ -3,4 +3,4 @@
 {{- with .Title }}{{ $attrs = printf `%s title=%q` $attrs . }}{{ end }}
 {{- if strings.HasPrefix .Destination "http" }}
   {{- $attrs = printf `%s target="_blank" rel="noopener noreferrer"` $attrs }}
-{{- end -}} <a {{ $attrs | safeHTMLAttr }}>{{ .Text }}</a>
+{{- end -}} <a {{ $attrs | safeHTMLAttr }}>{{ .Text }}</a> {{- /* chomp trailing newline, or every link gets a space after it */ -}}

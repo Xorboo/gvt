@@ -9,6 +9,10 @@ theme: "PaperMod"
 buildFuture: true
 enableRobotsTXT: true
 
+# all talks on one page: covers use loading="lazy", so the browser loads them while you scroll
+pagination:
+  pagerSize: 1000
+
 # search page needs the JSON index; markdown copies are served to agents that send Accept: text/markdown (see nginx.conf)
 outputs:
   home: ["HTML", "RSS", "JSON", "markdown"]
@@ -38,7 +42,7 @@ params:
   description: "GVT Meetups"
   defaultTheme: auto # dark, light, auto
   homeInfoParams:
-    Title: "Games and Visuals Trójmiasto"
+    Title: "Games & *V*isuals Trójmiasto" # *V* renders red, as on the talk covers
     Content: "Monthly gamedev meetups in Trójmiasto, join us!"
   socialIcons:
     - name: discord

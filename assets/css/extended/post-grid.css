@@ -1,0 +1,72 @@
+/* List pages: talk cards in a grid, 1 to 3 columns by viewport width */
+.main:has(.post-grid),
+body:has(.post-grid) .header-nav {
+  max-width: calc(1600px + var(--gap) * 2);
+}
+
+/* a column is at least 340px and at least a third of the row, so a row never holds more than 3 cards */
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(max(340px, (100% - 2 * var(--gap)) / 3), 1fr));
+  gap: var(--gap);
+  margin-bottom: var(--gap);
+}
+
+.post-grid .post-entry {
+  margin: 0;
+  padding: 14px;
+}
+
+.post-grid .entry-cover {
+  margin-bottom: 10px;
+}
+
+/* left column: event badge over speaker and date; right column: YouTube icon as tall as both lines */
+.post-grid .entry-meta-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 8px;
+}
+
+.post-grid .event-badge {
+  justify-self: start;
+}
+
+.post-grid .entry-meta-row > span:not(.event-badge) {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.post-grid .youtube-link {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+}
+
+/* the icon shape fills 17.5 of its 24 viewBox units in height, so a 52px box shows a 38px icon; the negative margin
+   cuts the empty part, so the box adds no height to the two text lines (48px) */
+.post-grid .youtube-link svg {
+  width: 52px;
+  height: 52px;
+  margin-block: -2px;
+}
+
+.post-grid .entry-header h2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  font-size: 19px;
+}
+
+/* talks have no body, so the summary is empty and only adds margin under the title */
+.post-grid .entry-content:has(> p:empty) {
+  display: none;
+}
+
+@media (max-width: 400px) {
+  .post-grid {
+    grid-template-columns: 1fr;
+  }
+}

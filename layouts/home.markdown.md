@@ -1,4 +1,4 @@
-# {{ site.Params.homeInfoParams.Title }}
+# {{ site.Params.homeInfoParams.Title | markdownify | plainify | htmlUnescape }}
 
 {{ site.Params.homeInfoParams.Content }}
 
