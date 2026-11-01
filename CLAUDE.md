@@ -27,6 +27,7 @@ The pinned Hugo version lives in exactly one place: the `FROM hugomods/hugo:X.Y.
 - **Redirect pages** (e.g. `content/discord/`, `content/gizmo/`): front matter `type: redirect` + `target: <url>`, rendered by `layouts/redirect/single.html` as a meta-refresh page. Use this pattern for new short links like `/discord`.
 - Known prettier gotcha: `prettier-plugin-go-template` errors with "unexpected end keyword" on comments like `{{/* end main */}}` — write them as `{{- /* end main */ -}}`.
 - Site config, social links, and homepage text are all in `config.yaml`.
+- **Markdown for agents**: the `markdown` output format writes an `index.md` next to the homepage and each page, from `layouts/{home,archives,single}.markdown.md` and `layouts/redirect/single.markdown.md`. `nginx.conf` serves it for `Accept: text/markdown`. A new page type or front matter field needs a matching change in these templates.
 
 ## Announcement generator
 

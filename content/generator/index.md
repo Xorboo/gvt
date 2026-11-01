@@ -8,4 +8,5 @@ sitemap:
   disable: true
 robotsNoIndex: true
 searchHidden: true
+outputs: ["html"]
 ---
