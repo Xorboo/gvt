@@ -9,9 +9,9 @@ theme: "PaperMod"
 buildFuture: true
 enableRobotsTXT: true
 
-# 12 divides evenly into 2 and 3 grid columns
+# all talks on one page: covers use loading="lazy", so the browser loads them while you scroll
 pagination:
-  pagerSize: 12
+  pagerSize: 1000
 
 # search page needs the JSON index; markdown copies are served to agents that send Accept: text/markdown (see nginx.conf)
 outputs:
