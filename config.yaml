@@ -42,7 +42,7 @@ params:
   description: "GVT Meetups"
   defaultTheme: auto # dark, light, auto
   homeInfoParams:
-    Title: "Games and Visuals Trójmiasto"
+    Title: "Games & *V*isuals Trójmiasto" # *V* renders red, as on the talk covers
     Content: "Monthly gamedev meetups in Trójmiasto, join us!"
   socialIcons:
     - name: discord

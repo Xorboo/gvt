@@ -40,6 +40,12 @@
   font-family: "Sometype Mono", monospace;
 }
 
+/* the red V of the talk covers; config marks it as *V* */
+.home-info .entry-header h1 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
 /* the theme's .first-entry forces min-height 320px */
 .first-entry.home-info {
   min-height: unset;
