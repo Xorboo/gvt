@@ -13,15 +13,6 @@ RUN apk upgrade --no-cache
 
 COPY --from=builder /src/public /usr/share/nginx/html
 
-# Handle clean URLs just in case
-RUN echo 'server { \
-    listen 80; \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    location / { \
-        try_files $uri $uri/ $uri.html =404; \
-    } \
-    error_page 404 /404.html; \
-}' > /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
