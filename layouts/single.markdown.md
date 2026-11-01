@@ -2,7 +2,8 @@
 {{ with .Params.speaker }}
 - Speaker: {{ . }}
 - Date: {{ $.Date.Format "2006-01-02" }}{{ end }}{{ with .Params.youtube }}
-- Recording: {{ . }}{{ end }}
+- Recording: {{ . }}{{ else }}{{ if eq .Params.youtube false }}
+- Recording: none{{ end }}{{ end }}
 {{ with .Description }}
 ## Description
 

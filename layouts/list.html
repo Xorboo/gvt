@@ -82,7 +82,10 @@
               {{- with .Params.event }}<span class="event-badge">{{ . }}</span>{{ end }}
               {{- if not (.Param "hideMeta") }}
                 <span>
-                  {{- with .Params.speaker }}{{ . }}&nbsp;&middot;&nbsp;{{ end }}{{- partial "post_meta.html" . | strings.TrimSpace | safeHTML -}}
+                  {{- with .Params.speaker }}
+                    {{- . }}&nbsp;&middot;&nbsp;
+                  {{- end }}
+                  {{- partial "post_meta.html" . | strings.TrimSpace | safeHTML -}}
                 </span>
               {{- end }}
               <div class="youtube-link">
@@ -90,6 +93,27 @@
                   <a href="{{ . | safeURL }}" target="_blank" rel="noopener noreferrer" title="YouTube">
                     {{ partial "svg.html" (dict "name" "youtube") }}
                   </a>
+                {{- else }}
+                  {{- if eq .Params.youtube false }}
+                    {{- /* youtube: false = no recording was made; no youtube field = recording may still come */}}
+                    <span class="no-recording" role="img" aria-label="No recording" title="No recording">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"
+                        />
+                        <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
+                        <path d="M21 2L3 21.5" />
+                      </svg>
+                    </span>
+                  {{- end }}
                 {{- end }}
               </div>
             </div>
