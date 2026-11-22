@@ -1,27 +1,37 @@
 name: YouTube links
 
 # Adds the YouTube link to a talk page when its video is public on the channel, and commits to master (Coolify deploys).
+# The ruleset "master: CI must pass" lets deploy keys bypass it, so the push uses the deploy key in secret
+# YT_LINKS_DEPLOY_KEY. Before the push, the job runs the same docker build as CI, so a broken page never reaches master.
 on:
   schedule:
     - cron: "0 7 * * *" # daily 07:00 UTC
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   links:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          submodules: recursive
       - id: links
         run: python .github/scripts/youtube_links.py | tee links.txt
       - if: always() && steps.links.outcome != 'skipped'
+        env:
+          DEPLOY_KEY: ${{ secrets.YT_LINKS_DEPLOY_KEY }}
         run: |
           git add content/talks
           git diff --cached --quiet && exit 0
+          docker build -t site-check .
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           { echo "talks(feat): add YouTube links"; echo; grep '^added' links.txt; } > msg.txt
           git commit -q -F msg.txt
-          git push
+          install -m 600 /dev/null "$RUNNER_TEMP/key"
+          printf '%s\n' "$DEPLOY_KEY" > "$RUNNER_TEMP/key"
+          GIT_SSH_COMMAND="ssh -i $RUNNER_TEMP/key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new" \
+            git push "git@github.com:${GITHUB_REPOSITORY}.git" HEAD:master
