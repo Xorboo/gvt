@@ -3,7 +3,7 @@ name: YouTube links
 # Adds the YouTube link to a talk page when its video is public on the channel, and commits to master (Coolify deploys).
 on:
   schedule:
-    - cron: "0 7 * * 1" # Mondays 07:00 UTC
+    - cron: "0 7 * * *" # daily 07:00 UTC
   workflow_dispatch:
 
 permissions:
