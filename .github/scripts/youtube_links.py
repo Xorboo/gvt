@@ -1,7 +1,7 @@
 # Adds `youtube:` links to talk pages for videos that are public on the GVT YouTube channel.
 # Reads the channel RSS feed (public videos only, the latest 15), so a video gets on the site after it is published.
 # A video title has the form: GVT #<N> <Speaker> "<Talk title>". It is matched to a talk of event "GVT #<N>" that has
-# no `youtube:` line, by speaker name (title similarity breaks a tie).
+# no `youtube:` line, by speaker name or nickname (title similarity breaks a tie).
 # Exit code 1 if a "GVT #<N>" video matches no talk (for example, the talk is not on the site yet): GitHub emails the owner.
 # Videos without "GVT #<N>" in the title are not talks and are skipped.
 # Run from the repo root: python .github/scripts/youtube_links.py [feed.xml]  (a file instead of the live feed, for tests)
@@ -49,8 +49,10 @@ def match(title, talks):
     words = set(norm(speaker))
     scored = []
     for path, text in talks:
-        names = norm((field(text, "speaker") or "").split(",")[0])
-        same = len(words & set(names))
+        # Full speaker field, nickname included ("Aleksandra Jung, Doksa"): a title may use the name or the nickname.
+        # Words under 3 letters ("z", "of") do not count.
+        names = {w for w in norm(field(text, "speaker") or "") if len(w) >= 3}
+        same = len(words & names)
         sim = difflib.SequenceMatcher(None, " ".join(norm(topic)), " ".join(norm(field(text, "title") or ""))).ratio()
         if same or sim > 0.6:
             scored.append((same, sim, path))
