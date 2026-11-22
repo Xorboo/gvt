@@ -1,0 +1,27 @@
+name: YouTube links
+
+# Adds the YouTube link to a talk page when its video is public on the channel, and commits to master (Coolify deploys).
+on:
+  schedule:
+    - cron: "0 7 * * *" # daily 07:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - id: links
+        run: python .github/scripts/youtube_links.py | tee links.txt
+      - if: always() && steps.links.outcome != 'skipped'
+        run: |
+          git add content/talks
+          git diff --cached --quiet && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          { echo "talks(feat): add YouTube links"; echo; grep '^added' links.txt; } > msg.txt
+          git commit -q -F msg.txt
+          git push
