@@ -7,6 +7,7 @@ speakerInfo: |
   Gamer and community manager, helping players connect with their favorite games for over 8 years. [LinkedIn](https://www.linkedin.com/in/mkgorska/)
 description: |
   Community management often means wearing many hats - but how many, exactly? Let's talk about the thin line between community management, marketing, and social media.
+youtube: "https://youtu.be/MxkJiulKHH4"
 cover:
   image: "images/talks/2026-05-15-magdalena.png"
 ---
